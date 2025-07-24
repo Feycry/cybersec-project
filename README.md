@@ -1,6 +1,6 @@
-# Cybersecurity Base 2025 - Project 1: Unsafe Notes App
+# Cyber Security Base 2025 - Project 1: Unsafe Notes App
 
-**Link**: placeholder
+**Link**: [https://github.com/Feycry/cybersec-project](https://github.com/Feycry/cybersec-project)
 
 This project is a Django-based personal notes app (very original I know :D) that demonstrates common web security vulnerabilities from the OWASP Top 10 list (2021). This project was made for completing a module of the Cyber Security Base MOOC by the University of Helsinki.
 ## Installation Instructions
@@ -62,7 +62,7 @@ This application contains five purposefully implemented security vulnerabilities
 
 ### FLAW 1: A01 (Broken Access Control)
 
-**Source**: placeholder
+**Source**: [notesapp/pages/views.py#L54](https://github.com/Feycry/cybersec-project/blob/main/notesapp/pages/views.py#L54)
 
 The application suffers from a broken access control vulnerability. Any user can navigate to `http://127.0.0.1:8000/notes/{id}/delete/` to delete any note they know the id of. Finding out a note's id is trivial since they are simply sequential, starting from one.
 
@@ -80,7 +80,7 @@ The issue can be mitigated simply by checking that the note being deleted belong
 
 ### FLAW 2: A02 (Cryptographic Failure)
 
-**Source**: placeholder
+**Source**: [notesapp/config/settings.py#L15](https://github.com/Feycry/cybersec-project/blob/main/notesapp/config/settings.py#L15)
 
 The application includes a severe vulnerability where the passwords for each user are stored in plain text. This is done by replacing Django's default functions for creating and checking passwords. The way this happens in the app doesn't really resemble any real-world scenario, but is still mostly analogous to, for example, an insecure custom user model being used in models.py. The unrealistic monkey wrench approach was used to keep the demonstration contained to a single file where it is easily toggled on and off.
 
@@ -92,7 +92,7 @@ The fix is very straightforward. Instead of brainlessly disabling hashing, we co
 
 ### FLAW 3: A03 (Injection)
 
-**Source**: placeholder
+**Source**: [notesapp/pages/views.py#L12](https://github.com/Feycry/cybersec-project/blob/main/notesapp/pages/views.py#L12)
 
 The application has a classic SQL injection vulnerability in the functionality for searching notes. The query for the search is constructed using string formatting without any sort of input sanitization or parameterization. The query is simply made from user input in the search field using f-string.
 
@@ -104,7 +104,8 @@ Fixing the issue is very straightforward. We could use an SQL query with templat
 
 ### FLAW 4: A07 (Identification and Authentication Failures)
 
-**Source**: placeholder
+**Source**: [notesapp/config/settings.py#L137](https://github.com/Feycry/cybersec-project/blob/main/notesapp/config/settings.py#L137)
+
 
 The application's session management is flawed. Currently, the cookie keeping the user logged in expires after a year, which is not in line with common security practices. The provided screenshots show the difference in the cookies duration between the current and the fixed implementation. Such an extended lifetime increases the window of opportunity for session hijacking and unauthorised access from shared computers.
 
@@ -115,7 +116,7 @@ The issue can be fixed by removing or commenting out insecure configuration line
 
 ### FLAW 5: A05 (Security Misconfiguration)
 
-**Source**: placeholder
+**Source**: [notesapp/pages/views.py#L76](https://github.com/Feycry/cybersec-project/blob/main/notesapp/pages/views.py#L76)
 
 The application provides an insecure debug endpoint without any sort of authentication needed. The page can be seen over at `http://127.0.0.1:8000/debug/`. The page lists the secret key, debug mode status, all user information including passwords and every note in the system. Even with authentication, having a page that shows the secret key and user passwords is pretty much never a good idea.
 
