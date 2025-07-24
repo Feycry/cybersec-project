@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Debug Information</title>
+    </head>
+    <body>
+        <h1>Debug Information</h1>
+
+        <h2>Configuration</h2>
+        <p>Secret Key: {{ debug_info.secret_key }}</p>
+        <p>Debug Mode: {{ debug_info.debug_mode }}</p>
+
+        <h2>All Users</h2>
+        {% for user in debug_info.all_users %}
+        <p>ID: {{ user.id }}, Username: {{ user.username }}, Email: {{ user.email }}, Password: {{ user.password }}</p>
+        {% endfor %}
+
+        <h2>All Notes</h2>
+        {% for note in debug_info.all_notes %}
+        <p>ID: {{ note.id }}, Owner: {{ note.owner.username }}, Content: {{ note.content }}</p>
+        {% endfor %}
+    </body>
+</html>

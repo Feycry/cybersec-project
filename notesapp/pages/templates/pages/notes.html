@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Notes App</title>
+    </head>
+    <body>
+        <h1>Notes App</h1>
+
+        <p>Username: {{user.username}}</p>
+
+        <form action='/logout/' method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+        
+        <h2>Add New Note</h2>
+        <form action='/notes/' method="POST">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Note Content" rows="4" cols="50"></textarea>
+            <input type="submit" value="Add Note"/>
+        </form>
+        
+        <h2>Search Notes</h2>
+        <form action='/notes/' method="GET">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="Search your notes..." size="30"/>
+            <input type="submit" value="Search"/>
+            {% if search_query %}
+                <a href="/notes/">Clear</a>
+            {% endif %}
+        </form>
+        {% if search_query %}
+            <p><em>Showing results for: "{{ search_query }}"</em></p>
+        {% endif %}
+        
+        <h2>Your Notes</h2>
+
+        <ul>
+        {% for note in notes %}
+            <li>{{note.content}} <a href="/notes/{{note.id}}/delete/">Delete</a></li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
